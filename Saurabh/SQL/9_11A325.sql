@@ -196,3 +196,112 @@ ex. CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
 ❌ Remove constraint
 ALTER TABLE Students DROP CONSTRAINT chk_age;
 */
+
+
+#18-04-2025
+show tables;
+create table c(
+id int);
+
+insert into c value("A");
+select* from c;
+#----------------------
+
+create table u(
+ID int unique,
+name varchar(30));
+insert into u value(
+1,"Harry");
+insert into u value(2,"Harry");
+insert into u value(null,"Harry");
+insert into u value(0,"Harry");
+insert into u value(00,"Harry");
+insert into u value(22,"Harry");
+select* from u;
+desc u;
+#-----------------------------------
+
+create table n (id int not null,name varchar(30));
+desc n;
+select* from n;
+insert into n value(0,"Harry");
+insert into n value(0,"Harry");
+insert into n value(null,"Harry");
+insert into n value(Harry,"null");
+
+#------------------------------------
+
+create table u_n (
+id int unique not null,
+name varchar(30));
+desc u_n;
+
+#------------------------------
+create table po (an int primary key not null,
+                 pn varchar (20) unique not null,
+                 passpo int unique not null);
+desc po;
+drop table po;
+insert into po value (111,"abc123acv",1234567);
+insert into po value (112,"acc123acv",1234587);
+insert into po value (121,"cbc123acv",2234567);
+select* from po;
+
+#--------------------------------
+
+create table a (id int primary key auto_increment,name varchar(20));
+desc a;
+insert into a values (100,"Harry");
+insert into a (name) value("tom"),("jerry"),("Potter");
+select * from a;
+
+#----------------------------------------
+
+create table cb (id int primary key,
+                age int ,
+			    name varchar(20),
+                check (age>18));
+desc cb;
+insert into cb values(1,19,"harry");
+drop table cb;
+create table cb (id int primary key,
+				 age int check (age>18),
+                 name varchar(20));
+insert into cb values(1,19,"harry");
+insert into cb values(2,19,"harry");
+drop table cb;
+create table cb(id int auto_increment,
+                age int,
+                name varchar(20),
+                primary key(id),
+                check (age>18));
+show create table cb;
+
+#----------------------------------------------
+create table aaa(id int,
+                name varchar(20),
+                city varchar(20) default"mumbai");
+insert into aaa value(1,"Harry","pune");
+
+select * from aaa;
+insert into aaa(id,name) values(1,"harry");
+
+                
+#--------------------------------------
+create table customers(
+                       id int primary key,
+                       name varchar(20));
+create table orders(
+                   o_id int primary key,
+                   c_id int,
+                   foreign key(c_id) references customers(id));
+desc customers;
+desc orders;
+#child table insertion
+insert into orders value(1,10); #pehele Customers mein jayega
+insert into customers value (2,"harry");
+insert into orders value (82,2);
+select* from orders;
+#parent table deletion
+delete from customers where id=2;
+delete from orders where c_id =2;
